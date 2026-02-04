@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Dec\\Documents\\Portfolio projects\\Todo console app\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C8E03CBF-AA26-4BAF-88F5-06F608C51DD3}|Todo console app\\Todo console app.csproj|c:\\users\\dec\\documents\\portfolio projects\\todo console app\\todo console app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8E03CBF-AA26-4BAF-88F5-06F608C51DD3}|Todo console app\\Todo console app.csproj|solutionrelative:todo console app\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Dec\\Documents\\Portfolio projects\\Todo console app\\Todo console app\\Program.cs",
+              "RelativeDocumentMoniker": "Todo console app\\Program.cs",
+              "ToolTip": "C:\\Users\\Dec\\Documents\\Portfolio projects\\Todo console app\\Todo console app\\Program.cs",
+              "RelativeToolTip": "Todo console app\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T14:15:37.662Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
