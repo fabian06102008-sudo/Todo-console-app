@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System;
+using Todo_console_app.Data;
 using Microsoft.Data.Sqlite;
 
 namespace TestConsoleApp
@@ -8,7 +10,15 @@ namespace TestConsoleApp
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello, World!");
+            //create variables
+            System.Console.WriteLine("Starting...");
+
+            //create instance
+
+            //populate / read data
+
+
+            //interact with data
         }
     }
 }
