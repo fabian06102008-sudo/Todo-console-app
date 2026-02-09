@@ -1,9 +1,9 @@
 ﻿--Table for user information
 CREATE TABLE Users (
-	id INTEGER PRIMARY KEY,
-	userID TEXT NOT NULL UNIQUE,
+	id INTEGER,
+	userID TEXT NOT NULL UNIQUE PRIMARY KEY,
 	passwrd_hash REAL NOT NULL
-
+	--created_at INTEGER not null
 );
 
 --Table for actions on the ToDo list
@@ -15,5 +15,5 @@ CREATE TABLE ActionsToDo (
 	is_complete INTEGER NOT NULL DEFAULT 0,
 	time_create INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP --could be text?
 
-	FOREIGN KEY (userID) REFERENCES Users(id) --end of table foreign key
+	FOREIGN KEY (userID) REFERENCES Users(userID) --end of table foreign key
 );
