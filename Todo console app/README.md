@@ -9,3 +9,11 @@
 	I've also learned about other ways of storing data outside of a file, such as with SQL. Not only this but choosing the right type of SQL for the project was important.
 	SQLite was chosen due to being lightweight and serverless, allowing me to get back into understanding SQL without any complexities.
 
+	I've also learned a lot about how industry standards can affect code.
+	An example of this is at university learning about camelCase, but not a lot about Pascalcase.
+	In addition to this, I also took a lot of time to learn about SQL commands, having not done them in a while
+	which lead to learning about how to make proper calls, especially when it comes to authenticating users.
+	Another part I've learned is about various methods of password protection, such as privacy
+
+# How it works
+	The project starts by beginning to initialise the data

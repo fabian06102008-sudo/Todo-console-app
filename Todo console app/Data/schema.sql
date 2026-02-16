@@ -1,29 +1,29 @@
 ﻿--Table for user information
 CREATE TABLE Users (
-	username TEXT NOT NULL,
-	userID INTEGER NOT NULL UNIQUE PRIMARY KEY,
-	passwrd_hash REAL NOT NULL
+	Username TEXT NOT NULL,
+	UserId INTEGER NOT NULL UNIQUE PRIMARY KEY,
+	Passwrd_Hash REAL NOT NULL
 	--created_at INTEGER not null
 );
 
 --Table for actions on the ToDo list
 CREATE TABLE ActionsToDo (
-	id INTEGER NOT NULL,
-	userID INTEGER NOT NULL,
-	title TEXT NOT NULL,
-	description TEXT NULL,
-	is_complete INTEGER NOT NULL DEFAULT 0,
-	time_create INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP --could be text?
+	Id INTEGER NOT NULL,
+	UserId INTEGER NOT NULL,
+	Title TEXT NOT NULL,
+	Description TEXT NULL,
+	Is_Complete INTEGER NOT NULL DEFAULT 0,
+	Time_Create INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP --could be text?
 
-	FOREIGN KEY (userID) REFERENCES Users(userID) --end of table foreign key
+	FOREIGN KEY (UserId) REFERENCES Users(UserId) --end of table foreign key
 );
 
 CREATE TABLE Expenses (
-	id INTEGER UNIQUE,
-	userID INTEGER NOT NULL,
-	amount INTEGER NOT NULL,
-	frequency TEXT DEFAULT 0,
-	title TEXT NOT NULL UNIQUE
+	Id INTEGER UNIQUE,
+	UserId INTEGER NOT NULL,
+	Amount INTEGER NOT NULL,
+	Frequency TEXT DEFAULT 0,
+	Title TEXT NOT NULL UNIQUE
 
-	FOREIGN KEY (userID) REFERENCES Users(userID)
+	FOREIGN KEY (UserId) REFERENCES Users(UserId)
 );
