@@ -11,24 +11,60 @@ namespace TestConsoleApp
 {
     internal class Program
     {
-        static void ShowMenu()
+        //used when empty strings not allowed
+        static string ReadRequiredInput(string prompt)
         {
-            //between create acc or login
+            string? input;
+
+            do
+            {
+                Console.Write(prompt);
+                input = Console.ReadLine();
+            }
+            while (string.IsNullOrWhiteSpace(input));
+
+            return input; // Safe: guaranteed non-null
         }
 
-        static void Login()
+        //login
+        static bool Login()
         {
+            //ask for user information
+            string username = ReadRequiredInput("Please enter your username");
+            string password = ReadRequiredInput("Please enter your password");
+            //salt and hash password
 
+            //check if in systems
+            if (Data.validateUser(username, password))
+            {
+                Console.WriteLine("Login successful");
+                Console.WriteLine("Welcome, {username}", username);
+            }
+            else //user not in system
+            {
+                Console.WriteLine("Invalid Credentials");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+            }
+
+            return true;
         }
 
-        static void createAcc()
+        public static string generateSalt()
         {
-            //get the username
+            string value = "3";//RandomNumberGenerator.GetBytes(16);
+            return value;
+        }
 
-            //get the password
+        static void CreateAcc()
+        {
+            //get user details
+            string username = ReadRequiredInput("Please enter a username");
+            string password = ReadRequiredInput("Please enter a password");
 
             //input into sql database
-            Data.InputUser(username, password);
+            Data.createUser(username, password);
+            Console.WriteLine("User {0} has been initialised. Press any key to continue", username);
         }
 
         static void Main(string[] args)
@@ -41,36 +77,41 @@ namespace TestConsoleApp
             Console.Write("Database initialised.");
 
             bool accessGRANT = false;
-            string username;
-            string password;
-            //check if the user has an account with the system
+
+            ConsoleKeyInfo menu; //selects the menu
 
             //auth loop to check if user in system
             while (!accessGRANT)
             {
-                
-                //ask for user information
-                Console.WriteLine("Please enter your username");
-                username = Console.ReadLine();
-                Console.WriteLine("Please enter your password");
-                password = Console.ReadLine();
-                //salt and hash password
+                Console.WriteLine("Please select an option");
+                Console.WriteLine("[1] : Login \n[2] : Create Account \n[0] : Exit");
+                menu = Console.ReadKey();
 
-                //check if in systems
-                if(Data.validateUser(username, password))
+                switch(menu.Key)
                 {
-                    Console.WriteLine("Login successful");
-                    Console.WriteLine("Welcome, {username}", username);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Credentials");
-                    Console.WriteLine("Press any key to continue");
-                    Console.ReadKey();
-                }
-                    
+                    case ConsoleKey.D1: //Login
+                    case ConsoleKey.NumPad1:
+                        if(Login()) //if login successful
+                        {
+                            accessGRANT = true;
+                        }
+                        break;
+
+                    case ConsoleKey.D2: //Create Account
+                    case ConsoleKey.NumPad2:
+                        CreateAcc();
+                        break;
+
+                    case ConsoleKey.D0: //Exit the progrram
+                    case ConsoleKey.NumPad0: 
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid selection.\nPress any key to continue");
+                        Console.ReadKey();
+                        break;
+                }                
             }
-            //if password match, proceed
 
             //ask user abt expenses or todolist
 

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +26,27 @@ namespace Todo_console_app.Data
             connection.Close();
         }
 
+        //create a salt for passwords
+        public static string GenerateSalt()
+        {
+            byte[] salt = RandomNumberGenerator.GetBytes(16);
+            return Convert.ToBase64String(salt);
+        }
+
+        public static string HashPassword(string password, string storedSalt)
+        {
+            byte[] salt = Convert.FromBase64String(storedSalt);
+
+            using var pbkdf2 = new Rfc2898DeriveBytes(
+                password,
+                salt,
+                100_000,                 // iteration count
+                HashAlgorithmName.SHA256
+            );
+
+            byte[] hash = pbkdf2.GetBytes(32); // 256-bit key
+            return Convert.ToBase64String(hash);
+        }
         //function to recall information (to test and expand ability of function
         public static void GetUserCount()
         {
@@ -45,18 +68,28 @@ namespace Todo_console_app.Data
 
             //check if the username exists within the username table
             var command = connection.CreateCommand();
-            command.CommandText = @"SELECT EXISTS(
-                SELECT 1 FROM Users
-                WHERE Username = @Username
-                AND   Passwrd_Hash = @PasswordHash
-                );
+            command.CommandText = @"
+                SELECT Passwrd_Hash, Salt
+                FROM Users
+                WHERE Username = @Username;;
             ";
 
             command.Parameters.AddWithValue("@Username", username);
-            command.Parameters.AddWithValue("@PasswordHash", password);
 
-            var result = command.ExecuteScalar();
-            int exists = Convert.ToInt32(result);
+            var result = command.ExecuteReader();
+
+            //if person is not found
+            if(!result.Read())
+            {
+                Console.WriteLine("No person found");
+                return false;
+            }
+
+            string storedHash = result.GetString(0);
+            string storedSalt = result.GetString(1);
+
+            string computedHash = HashPassword(password, storedSalt);
+
             return exists == 1;
         }
 
