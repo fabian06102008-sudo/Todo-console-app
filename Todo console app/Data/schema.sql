@@ -1,7 +1,7 @@
 ﻿--Table for user information
 CREATE TABLE Users (
 	Username TEXT NOT NULL,
-	UserId INTEGER NOT NULL UNIQUE PRIMARY KEY,
+	UserId INTEGER PRIMARY KEY,
 	Passwrd_Hash REAL NOT NULL
 	--created_at INTEGER not null
 );

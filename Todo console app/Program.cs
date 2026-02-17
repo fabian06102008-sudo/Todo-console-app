@@ -11,6 +11,26 @@ namespace TestConsoleApp
 {
     internal class Program
     {
+        static void ShowMenu()
+        {
+            //between create acc or login
+        }
+
+        static void Login()
+        {
+
+        }
+
+        static void createAcc()
+        {
+            //get the username
+
+            //get the password
+
+            //input into sql database
+            Data.InputUser(username, password);
+        }
+
         static void Main(string[] args)
         {
             //create variables
@@ -23,11 +43,12 @@ namespace TestConsoleApp
             bool accessGRANT = false;
             string username;
             string password;
-            //populate / read data
             //check if the user has an account with the system
 
+            //auth loop to check if user in system
             while (!accessGRANT)
             {
+                
                 //ask for user information
                 Console.WriteLine("Please enter your username");
                 username = Console.ReadLine();
@@ -45,8 +66,9 @@ namespace TestConsoleApp
                 {
                     Console.WriteLine("Invalid Credentials");
                     Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
                 }
-                    //if password not match, loop back
+                    
             }
             //if password match, proceed
 
