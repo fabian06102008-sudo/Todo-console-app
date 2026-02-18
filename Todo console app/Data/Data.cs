@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Todo_console_app.Data
@@ -16,37 +15,60 @@ namespace Todo_console_app.Data
     internal class Data
     {
 
-        private const string ConnectionString = "Data Source=app.db";
+        private const string ConnectionString = "Data Source=app.db; Foreign Keys = True";
 
         //initialise SQL Data
-        public static void Initialise()
+        public static bool Initialise()
         {
-            //read in tables
-            using var connection = new SqliteConnection(ConnectionString);
-            connection.Open();
+            try
+            {
+                //read in tables
+                using var connection = new SqliteConnection(ConnectionString);
+                connection.Open();
 
-            string sql = File.ReadAllText("Data/schema.sql");
+                string sql = File.ReadAllText("Data/schema.sql");
 
-            var command = connection.CreateCommand();
-            command.CommandText = sql;
-            command.ExecuteNonQuery();
+                var command = connection.CreateCommand();
 
-            
-            connection.Close();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+
+
+                connection.Close();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Initialisation failed: {ex.Message}");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                return false;
+            }
         }
 
-        public static void Seed()
+        public static bool Seed()
         {
-            //read in seed data
-            using var connection = new SqliteConnection(ConnectionString);
-            connection.Open();
-            string sql = File.ReadAllText("Data/seed.sql");
+            try
+            {
+                //read in seed data
+                using var connection = new SqliteConnection(ConnectionString);
+                connection.Open();
+                string sql = File.ReadAllText("Data/seed.sql");
 
-            var command = connection.CreateCommand();
-            command.CommandText = sql;
-            command.ExecuteNonQuery();
+                var command = connection.CreateCommand();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
 
-            connection.Close();
+                connection.Close();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Seeding failed: {ex.Message}");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                return false;
+            }
         }
 
         //create a salt for passwords
@@ -69,18 +91,6 @@ namespace Todo_console_app.Data
 
             byte[] hash = pbkdf2.GetBytes(32); // 256-bit key
             return Convert.ToBase64String(hash);
-        }
-        //function to recall information (to test and expand ability of function
-        public static void GetUserCount()
-        {
-            /*using var connection = new SqliteConnection(ConnectionString);
-            connection.Open();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "";
-
-            var result = command.ExecuteScalar();
-            return result;*/
         }
 
         //check the username exists
@@ -112,7 +122,6 @@ namespace Todo_console_app.Data
             string storedSalt = result.GetString(1);
 
             string computedHash = HashPassword(password, storedSalt);
-            Console.WriteLine(storedSalt);
 
             return CryptographicOperations.FixedTimeEquals( //compare the new result to the table, check if there
                     Convert.FromBase64String(computedHash),
@@ -125,8 +134,8 @@ namespace Todo_console_app.Data
             string salt = GenerateSalt();
             password = HashPassword(password, salt);
 
-            Console.WriteLine(password);
-            Console.WriteLine(salt);
+            //Console.WriteLine(password);
+            //Console.WriteLine(salt);
             using var connection = new SqliteConnection(ConnectionString);
             connection.Open();
 

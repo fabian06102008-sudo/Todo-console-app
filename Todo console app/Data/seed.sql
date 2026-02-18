@@ -2,7 +2,7 @@
 INSERT INTO Users (Username, UserID, Salt, Passwrd_Hash)	
 VALUES
 ('Roy', 1,'gQ92APxf8MD2ZGDmj21fMA==','o/JPtMorjiZWx7+b5lbkc2OEruNXWnyaFMSYUeLRmwc='),
-('Mark', 2,'Abfh34', 'password123');
+('Mark', 2,'Nz82pjygneainRAfiCwSBQ==', 'eqYmE1yPU7gBynINBa1ZhUL6znNuC/gFbe1aQgHErUw=');
 
 --Populating data for TodoList
 INSERT INTO ActionsToDo (Id, UserID, Title, Description, Is_Complete, Time_Create)

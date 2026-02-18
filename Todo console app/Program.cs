@@ -71,10 +71,17 @@ namespace TestConsoleApp
             System.Console.WriteLine("Starting...");
 
             //create instance
-            Data.Initialise(); //double check, how to test
+            if (!Data.Initialise())
+            {
+                return;
+            }
             Console.WriteLine("Database initialised.");
 
-            Data.Seed();
+            if(!Data.Seed())
+            {
+                return;
+            }
+            Console.WriteLine("Database populated");
 
             bool accessGRANT = false;
 
