@@ -105,16 +105,22 @@ namespace Todo_console_app.Data
 
         public static void createUser(string username, string password)
         {
+            string salt = GenerateSalt();
+            password = HashPassword(password, salt);
+
+            Console.WriteLine(password);
+            Console.WriteLine(salt);
             using var connection = new SqliteConnection(ConnectionString);
             connection.Open();
 
             //create command for generating a new user
             var command = connection.CreateCommand();
-            command.CommandText = @"INSERT INTO Users (Username, Passwrd_Hash)
-            VALUES (@Username, @PasswordHash)
+            command.CommandText = @"INSERT INTO Users (Username, Salt, Passwrd_Hash)
+            VALUES (@Username, @Salt, @PasswordHash)
             ";
 
             command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Salt", salt);
             command.Parameters.AddWithValue("@PasswordHash", password);
 
             var result = command.ExecuteScalar();

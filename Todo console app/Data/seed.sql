@@ -1,7 +1,7 @@
 ﻿--Populating data for users
 INSERT INTO Users (Username, UserID, Salt, Passwrd_Hash)	
 VALUES
-('Roy', 1,'Lebanon5','fehdhd'),
+('Roy', 1,'gQ92APxf8MD2ZGDmj21fMA==','o/JPtMorjiZWx7+b5lbkc2OEruNXWnyaFMSYUeLRmwc='),
 ('Mark', 2,'Abfh34', 'password123');
 
 --Populating data for TodoList

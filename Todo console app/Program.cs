@@ -48,7 +48,7 @@ namespace TestConsoleApp
             return true;
         }
 
-        public static string generateSalt()
+        public static string GenerateSalt()
         {
             string value = "3";//RandomNumberGenerator.GetBytes(16);
             return value;
