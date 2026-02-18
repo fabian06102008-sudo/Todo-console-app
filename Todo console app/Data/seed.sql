@@ -5,7 +5,7 @@ VALUES
 ('Mark', 2,'Abfh34', 'password123');
 
 --Populating data for TodoList
-INSERT INTO TodoList (Id, UserID, Title, Description, Is_Complete, Time_Create)
+INSERT INTO ActionsToDo (Id, UserID, Title, Description, Is_Complete, Time_Create)
 VALUES
 (1, 1, 'Make bed', 'Make the bed now', 0, 0),
 (2, 2, 'Drink water', NULL, 0, 0),

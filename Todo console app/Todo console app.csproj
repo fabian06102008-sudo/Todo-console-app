@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <None Remove="Data\schema.sql" />
+    <None Remove="Data\seed.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Data\schema.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\seed.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

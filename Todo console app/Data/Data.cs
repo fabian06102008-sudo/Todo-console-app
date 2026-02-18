@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Text;
-using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 
 namespace Todo_console_app.Data
 {
@@ -21,10 +21,26 @@ namespace Todo_console_app.Data
         //initialise SQL Data
         public static void Initialise()
         {
+            //read in tables
             using var connection = new SqliteConnection(ConnectionString);
             connection.Open();
 
             string sql = File.ReadAllText("Data/schema.sql");
+
+            var command = connection.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
+
+            
+            connection.Close();
+        }
+
+        public static void Seed()
+        {
+            //read in seed data
+            using var connection = new SqliteConnection(ConnectionString);
+            connection.Open();
+            string sql = File.ReadAllText("Data/seed.sql");
 
             var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -96,6 +112,7 @@ namespace Todo_console_app.Data
             string storedSalt = result.GetString(1);
 
             string computedHash = HashPassword(password, storedSalt);
+            Console.WriteLine(storedSalt);
 
             return CryptographicOperations.FixedTimeEquals( //compare the new result to the table, check if there
                     Convert.FromBase64String(computedHash),

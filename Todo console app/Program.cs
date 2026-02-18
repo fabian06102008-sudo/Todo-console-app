@@ -36,7 +36,7 @@ namespace TestConsoleApp
             if (Data.validateUser(username, password))
             {
                 Console.WriteLine("Login successful");
-                Console.WriteLine("Welcome, {username}", username);
+                Console.WriteLine($"Welcome, {username}");
             }
             else //user not in system
             {
@@ -73,6 +73,8 @@ namespace TestConsoleApp
             //create instance
             Data.Initialise(); //double check, how to test
             Console.WriteLine("Database initialised.");
+
+            Data.Seed();
 
             bool accessGRANT = false;
 
