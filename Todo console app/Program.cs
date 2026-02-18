@@ -4,8 +4,6 @@ using System;
 using Todo_console_app.Data;
 using Microsoft.Data.Sqlite;
 //for hashing passswords
-using System.Text;
-using System.Security.Cryptography;
 
 namespace TestConsoleApp
 {
@@ -74,15 +72,16 @@ namespace TestConsoleApp
 
             //create instance
             Data.Initialise(); //double check, how to test
-            Console.Write("Database initialised.");
+            Console.WriteLine("Database initialised.");
 
             bool accessGRANT = false;
 
             ConsoleKeyInfo menu; //selects the menu
-
+            Console.Clear();
             //auth loop to check if user in system
             while (!accessGRANT)
             {
+                Console.WriteLine("");
                 Console.WriteLine("Please select an option");
                 Console.WriteLine("[1] : Login \n[2] : Create Account \n[0] : Exit");
                 menu = Console.ReadKey();

@@ -8,6 +8,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Text;
+using System.Security.Cryptography;
+
 namespace Todo_console_app.Data
 {
     internal class Data
@@ -21,7 +24,11 @@ namespace Todo_console_app.Data
             using var connection = new SqliteConnection(ConnectionString);
             connection.Open();
 
-            // initialise schema.sql
+            string sql = File.ReadAllText("Data/schema.sql");
+
+            var command = connection.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
 
             connection.Close();
         }
@@ -90,7 +97,10 @@ namespace Todo_console_app.Data
 
             string computedHash = HashPassword(password, storedSalt);
 
-            return exists == 1;
+            return CryptographicOperations.FixedTimeEquals( //compare the new result to the table, check if there
+                    Convert.FromBase64String(computedHash),
+                    Convert.FromBase64String(storedHash)
+                );
         }
 
         public static void createUser(string username, string password)
