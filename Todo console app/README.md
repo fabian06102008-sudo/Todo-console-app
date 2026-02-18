@@ -15,5 +15,15 @@
 	which lead to learning about how to make proper calls, especially when it comes to authenticating users.
 	Another part I've learned is about various methods of password protection, such as privacy
 
+	I've also learned about persistent data within SQL. Part of my program would drop all tables as a way to bypass errors, however this was rectified when i was debugging over persistent data
+
+	I've also learned about how to communicate to a server/back end, using calls
+	While not the same as an API, it does help me understand and build back up the knowledge to make calls and interact and modify data
+
 # How it works
-	The project starts by beginning to initialise the data
+	The project starts by beginning to initialise the data. It runs a check within the data file itself. If the tables exist, they aren't dropped or gone over.
+	THEN it checks if the tables are already populated. If yes, move on. If not, it accesses seed.sql via Data.cs to populate the data
+	Should this fail, the user will be given a reason as to why it can't populate the data or seed the data
+
+	The user is initially given two options, login as well as create an account. 
+	To login, the data undergoes hashing and salting in order to protect the data, using that to compare it, rather than decryption. 

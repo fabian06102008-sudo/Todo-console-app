@@ -11,7 +11,6 @@ namespace TestConsoleApp
     {
 
 
-
         //used when empty strings not allowed
         static string ReadRequiredInput(string prompt)
         {
@@ -173,18 +172,34 @@ namespace TestConsoleApp
                 {
                     case ConsoleKey.D1: //Add Item
                     case ConsoleKey.NumPad1:
+                        //select item name
+                        //item description
                         break;
                     case ConsoleKey.D2: //Remove Item
                     case ConsoleKey.NumPad2:
+                        //select item
+
+                        //check if item exists
+
+                        //confirm
+
+                        //yn delete, keep and loop to submenu
                         break;
                     case ConsoleKey.D3: //Get Item Description
                     case ConsoleKey.NumPad3:
+                        //input item name
+                        //check, 
+                        //yn show, error msg
                         break;
                     case ConsoleKey.D4: //Edit Item
                     case ConsoleKey.NumPad4:
+
+                        //same as 3
                         break;
                     case ConsoleKey.D5: //Mark as completed
                     case ConsoleKey.NumPad5:
+                        Console.WriteLine("Select an item you want to mark as completed");
+                        //same as 3
                         break;
                     case ConsoleKey.D0: //Exit the progrram
                     case ConsoleKey.NumPad0:
