@@ -9,6 +9,9 @@ namespace TestConsoleApp
 {
     internal class Program
     {
+
+
+
         //used when empty strings not allowed
         static string ReadRequiredInput(string prompt)
         {
@@ -28,8 +31,8 @@ namespace TestConsoleApp
         static bool Login()
         {
             //ask for user information
-            string username = ReadRequiredInput("Please enter your username");
-            string password = ReadRequiredInput("Please enter your password");
+            string username = ReadRequiredInput("Please enter your username ");
+            string password = ReadRequiredInput("Please enter your password ");
             //salt and hash password
 
             //check if in systems
@@ -37,28 +40,22 @@ namespace TestConsoleApp
             {
                 Console.WriteLine("Login successful");
                 Console.WriteLine($"Welcome, {username}");
+                return true;
             }
             else //user not in system
             {
                 Console.WriteLine("Invalid Credentials");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
+                return false;
             }
-
-            return true;
-        }
-
-        public static string GenerateSalt()
-        {
-            string value = "3";//RandomNumberGenerator.GetBytes(16);
-            return value;
         }
 
         static void CreateAcc()
         {
             //get user details
-            string username = ReadRequiredInput("Please enter a username");
-            string password = ReadRequiredInput("Please enter a password");
+            string username = ReadRequiredInput("Please enter a username    ");
+            string password = ReadRequiredInput("Please enter a password    ");
 
             //input into sql database
             Data.createUser(username, password);
@@ -77,31 +74,39 @@ namespace TestConsoleApp
             }
             Console.WriteLine("Database initialised.");
 
-            if(!Data.Seed())
+            //ONLY run if not already populated
+            if (Data.IsDBEmpty())
             {
-                return;
+                if (!Data.Seed())
+                {
+                    return;
+                }
+                Console.WriteLine("Database populated");
             }
-            Console.WriteLine("Database populated");
 
-            bool accessGRANT = false;
+            bool AccessGRANT = false;
+            bool Running = true;
+            ConsoleKeyInfo SubMenu;
 
-            ConsoleKeyInfo menu; //selects the menu
+            ConsoleKeyInfo Menu; //selects the menu
             Console.Clear();
             //auth loop to check if user in system
-            while (!accessGRANT)
+            while (!AccessGRANT)
             {
                 Console.WriteLine("");
                 Console.WriteLine("Please select an option");
                 Console.WriteLine("[1] : Login \n[2] : Create Account \n[0] : Exit");
-                menu = Console.ReadKey();
+                Menu = Console.ReadKey();
 
-                switch(menu.Key)
+                Console.WriteLine();
+
+                switch(Menu.Key)
                 {
                     case ConsoleKey.D1: //Login
                     case ConsoleKey.NumPad1:
                         if(Login()) //if login successful
                         {
-                            accessGRANT = true;
+                            AccessGRANT = true;
                         }
                         break;
 
@@ -111,7 +116,8 @@ namespace TestConsoleApp
                         break;
 
                     case ConsoleKey.D0: //Exit the progrram
-                    case ConsoleKey.NumPad0: 
+                    case ConsoleKey.NumPad0:
+                        Console.WriteLine("Program Terminated");
                         return;
 
                     default:
@@ -121,22 +127,75 @@ namespace TestConsoleApp
                 }                
             }
 
-            //ask user abt expenses or todolist
+            //items in program
+            while(Running)
+            {
+                Console.WriteLine("Select Menu Option");
+                Console.WriteLine("[1] : To Do List");
+                Console.WriteLine("[2] : Expenses");
+                Console.WriteLine("[0] : Exit");
+                Menu = Console.ReadKey();
 
-            //get data
+                switch (Menu.Key)
+                {
+                    case ConsoleKey.D1: //Go to ToDo List
+                    case ConsoleKey.NumPad1:
+  
+                        break;
 
-            //todo LIST
+                    case ConsoleKey.D2: //Go to Expenses
+                    case ConsoleKey.NumPad2:
 
-            //function to output
+                        break;
 
-            //allow modification
+                    case ConsoleKey.D0: //Exit the progrram
+                    case ConsoleKey.NumPad0:
+                        Console.WriteLine("Program Terminated");
+                        return;
 
+                    default:
+                        Console.WriteLine("Invalid selection.\nPress any key to continue");
+                        Console.ReadKey();
+                        break;
+                }
 
-            //EXPENSES
+                Console.WriteLine("Select SubMenu Option:");
+                Console.WriteLine("[1] : Add item");
+                Console.WriteLine("[2] : Remove Item");
+                Console.WriteLine("[3] : Get item description");
+                Console.WriteLine("[4] : Edit item in list");
+                Console.WriteLine("[5] : Mark as completed");
+                Console.WriteLine("[0] : Exit");
 
+                SubMenu = Console.ReadKey();
 
-
-            //interact with data
+                switch (SubMenu.Key)
+                {
+                    case ConsoleKey.D1: //Add Item
+                    case ConsoleKey.NumPad1:
+                        break;
+                    case ConsoleKey.D2: //Remove Item
+                    case ConsoleKey.NumPad2:
+                        break;
+                    case ConsoleKey.D3: //Get Item Description
+                    case ConsoleKey.NumPad3:
+                        break;
+                    case ConsoleKey.D4: //Edit Item
+                    case ConsoleKey.NumPad4:
+                        break;
+                    case ConsoleKey.D5: //Mark as completed
+                    case ConsoleKey.NumPad5:
+                        break;
+                    case ConsoleKey.D0: //Exit the progrram
+                    case ConsoleKey.NumPad0:
+                        Console.WriteLine("Program Terminated");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid selection.\nPress any key to continue");
+                        Console.ReadKey();
+                        break;
+                }
+            }
         }
     }
 }

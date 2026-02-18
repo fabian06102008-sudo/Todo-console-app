@@ -1,10 +1,10 @@
 ﻿--Table for user information
 
-DROP TABLE IF EXISTS ActionsToDo;
-DROP TABLE IF EXISTS Expenses;
-DROP TABLE IF EXISTS Users;
+--DROP TABLE IF EXISTS ActionsToDo;
+--DROP TABLE IF EXISTS Expenses;
+--DROP TABLE IF EXISTS Users;
 
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
 	Username TEXT NOT NULL,
 	UserId INTEGER PRIMARY KEY,
 	Salt TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Users (
 );
 
 --Table for actions on the ToDo list
-CREATE TABLE ActionsToDo (
+CREATE TABLE IF NOT EXISTS ActionsToDo (
 	Id INTEGER NOT NULL,
 	UserId INTEGER NOT NULL,
 	Title TEXT NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE ActionsToDo (
 	FOREIGN KEY (UserId) REFERENCES Users(UserId) --end of table foreign key
 );
 
-CREATE TABLE Expenses (
+CREATE TABLE IF NOT EXISTS Expenses (
 	Id INTEGER UNIQUE,
 	UserId INTEGER NOT NULL,
 	Amount INTEGER NOT NULL,

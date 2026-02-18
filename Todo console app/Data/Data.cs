@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 
 using System.Runtime.InteropServices;
 
@@ -27,7 +28,7 @@ namespace Todo_console_app.Data
                 connection.Open();
 
                 string sql = File.ReadAllText("Data/schema.sql");
-
+                Console.WriteLine(connection.GetType().FullName);
                 var command = connection.CreateCommand();
 
                 command.CommandText = sql;
@@ -71,6 +72,17 @@ namespace Todo_console_app.Data
             }
         }
 
+        public static bool IsDBEmpty()
+        {
+            using var connection = new SqliteConnection(ConnectionString);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = "SELECT COUNT(*) FROM Users;";
+            long count = (long)command.ExecuteScalar();
+
+            return count == 0;
+        }
         //create a salt for passwords
         public static string GenerateSalt()
         {
